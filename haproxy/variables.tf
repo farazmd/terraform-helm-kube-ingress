@@ -35,5 +35,15 @@ variable "deploy_name" {
 variable "service_type" {
     type            = string
     description     = "Type of service for ingress"
-    default         = "NodePort"
+    default         = "LoadBalancer"
+}
+
+variable "config_path" {
+    type            = string
+    description     = "Path to kube config"
+}
+
+variable "config_context" {
+    type            = string
+    description     = "Kubernetes context to use"
 }

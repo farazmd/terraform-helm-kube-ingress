@@ -6,6 +6,20 @@ terraform {
             source = "hashicorp/helm"
             version = "2.3.0"
         }
+        # See https://registry.terraform.io/providers/hashicorp/kubernetes/2.6.1/docs
+        kubernetes = {
+            source = "hashicorp/kubernetes"
+            version = "2.6.1"
+        }
     }
 }
-provider "helm" {}
+provider "kubernetes" {
+    config_path     = var.config_path
+    config_context  = var.config_context
+}
+provider "helm" {
+    kubernetes {
+        config_path     = var.config_path
+        config_context  = var.config_context
+    }
+}

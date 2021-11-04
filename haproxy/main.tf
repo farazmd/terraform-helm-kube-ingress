@@ -14,3 +14,14 @@ resource "helm_release" "haproxy" {
         value   = var.service_type
     }
 }
+
+data "kubernetes_service" "lb_service" {
+    metadata {
+        name        = "${var.deploy_name}-${var.chart}"
+        namespace   = var.namespace
+    }
+}
+
+locals {
+    lb = var.service_type == "LoadBalancer" ? data.kubernetes_service.lb_service.status.0.load_balancer.0.ingress.0 : "Controller Service type is ${var.service_type}."
+}
